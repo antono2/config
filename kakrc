@@ -1,0 +1,1 @@
+/home/anton/workspace/kakoune/share/kak/kakrc
