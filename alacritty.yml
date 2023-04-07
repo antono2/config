@@ -10,7 +10,7 @@
 # to the user's home directory starting with `~/`.
 import:
 #  - /path/to/alacritty.yml
- - ~/workspace/alacritty/target/release/themes/themes/remedy_dark_anton.yaml
+ - ~/Configs/alacritty_themes/remedy_dark_anton.yaml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -452,16 +452,11 @@ font:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/tmux
+  program: /bin/bash
   args:
-    - -f
-    - /home/anton/Configs/.tmux.conf
-    - new-session
-    - -A
-    - -D
-    - -s
-    - main
-
+    - -l
+    - -c
+    - "tmux -f ~/Configs/.tmux.conf new-session -A -D -s main"
 
 # Startup directory
 #
