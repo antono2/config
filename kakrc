@@ -53,10 +53,12 @@ evaluate-commands %sh{
 ###  CUSTOM  ###
 ################
 
-add-highlighter global/ number-lines -separator ' '
+add-highlighter global/ number-lines -separator ' ' -relative
+add-highlighter global/ show-matching
+add-highlighter global/ wrap -indent
 set-option global autocomplete insert
-set-option global tabstop 2
-set-option global indentwidth 2
+set-option global tabstop 4
+set-option global indentwidth 4
 
 
 # Key-Mappings
@@ -64,18 +66,14 @@ set-option global indentwidth 2
 # key mappings for V language files
 hook global WinSetOption filetype=v %§
   require-module v
-  map -docstring "Format and save current file"         window normal <F5> ":vlang_fmt<ret>"
-  map -docstring 'Run v in v.mod directory'  window normal <F6> ":vlang_run<ret>"
-  map -docstring 'Switch to debug buffer'    window normal <F7> ":buffer *debug*<ret>"
-  map -docstring 'Switch to previous buffer' global normal <F8> ":buffer-previous;delete-buffer *debug*<ret>"
-  set-option buffer vlang_output_to_info_box true
-  set-option buffer vlang_output_to_debug_buffer true
+  map -docstring "Format and save current file"	window normal <F5> ":v-fmt<ret>"
+  map -docstring 'Run v in v.mod directory'	window normal <F6> ":v-run<ret>"
+  map -docstring 'Switch to debug buffer'	window normal <F7> ":buffer *debug*<ret>"
+  map -docstring 'Switch to previous buffer'	global normal <F8> ":buffer-previous;delete-buffer *debug*<ret>"
+  set-option buffer v_output_to_info_box	true
+  set-option buffer v_output_to_debug_buffer	true
 §
 
-#Paste before
-map global user P '!xsel --output --clipboard<ret>'
-#Paste after
-map global user p '<a-!>xsel --output --clipboard<ret>'
 
 # Kak-Language Server Protocol Client
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -84,10 +82,10 @@ eval %sh{ kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak
 hook global KakEnd .* lsp-exit
 # When VLS throws errors after a Kakoune restart is
 # when you absolutely, positively, have to kill a process
-hook global KakEnd .* %sh{ kill $(ps ax | grep "kak-lsp" | awk '{print $1}') }
+#hook global KakEnd .* %sh{ kill $(ps ax | grep "kak-lsp" | awk '{print $1}') }
 
-# Enable kak-lsp for V files
-hook global WinSetOption filetype=v %{
+# Enable kak-lsp for different files
+hook global WinSetOption filetype=(c|cpp) %{
     lsp-enable-window
 }
 
