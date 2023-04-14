@@ -60,6 +60,9 @@ set-option global autocomplete insert
 set-option global tabstop 4
 set-option global indentwidth 4
 
+# Colors ! Don't seem to override alacritty colors
+# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+#set-face global WrapMarker rgb:656d4d
 
 # Key-Mappings
 # ‾‾‾‾‾‾‾‾‾‾‾‾
