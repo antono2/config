@@ -64,6 +64,23 @@ set-option global indentwidth 4
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 #set-face global WrapMarker rgb:656d4d
 
+# Clipboard
+# ‾‾‾‾‾‾‾‾‾
+hook global RegisterModified '"' %{ nop %sh{
+  if [ -n "$DISPLAY" ]; then
+    printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+  elif [ -n "$TMUX" ]; then
+    tmux set-buffer -- "$kak_main_reg_dquote"
+  fi
+}}
+
+#Paste before
+map global user P -docstring "Paste before" '!xsel --output --clipboard<ret>'
+#Paste after
+map global user p -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
+#Replace selection
+map global user R -docstring "Replace selection" '|xsel --output --clipboard<ret>'
+
 # Key-Mappings
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 # key mappings for V language files
@@ -88,7 +105,7 @@ hook global KakEnd .* lsp-exit
 #hook global KakEnd .* %sh{ kill $(ps ax | grep "kak-lsp" | awk '{print $1}') }
 
 # Enable kak-lsp for different files
-hook global WinSetOption filetype=(c|cpp) %{
+hook global WinSetOption filetype=(c|cpp|cmake) %{
     lsp-enable-window
 }
 

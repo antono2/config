@@ -1,0 +1,39 @@
+snippet_support = true
+verbosity = 2
+
+[server]
+timeout = 1800 # seconds = 30 minutes
+
+[language.v]
+# The filetype variable is set in vlang.kak for .v, .vsh, .vv, .c.v under the name "v"
+filetypes = ["v"]
+roots = ["mod.v", ".git/"]
+command = "v"
+args = ["ls"]
+
+[language.c_cpp]
+filetypes = ["c", "cpp"]
+roots = [".ccls-root", "compile_commands.json"]
+command = "ccls"
+# kak-lsp does not support newText https://github.com/ul/kak-lsp/issues/40
+args = ["--init={\"completion\":{\"detailedLabel\":false}}"]
+
+[language.cmake]
+filetypes = ["cmake"]
+roots = ["CMakeLists.txt", ".git", ".hg"]
+command = "cmake-language-server"
+
+[semantic_tokens]
+faces = [
+    {face="documentation", token="comment", modifiers=["documentation"]},
+    {face="comment", token="comment"},
+    {face="function", token="function"},
+    {face="keyword", token="keyword"},
+    {face="module", token="namespace"},
+    {face="operator", token="operator"},
+    {face="string", token="string"},
+    {face="type", token="type"},
+    {face="default+d", token="variable", modifiers=["readonly"]},
+    {face="default+d", token="variable", modifiers=["constant"]},
+    {face="variable", token="variable"},
+]
