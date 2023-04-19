@@ -60,9 +60,11 @@ set-option global autocomplete insert
 set-option global tabstop 4
 set-option global indentwidth 4
 
-# Colors ! Don't seem to override alacritty colors
-# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-#set-face global WrapMarker rgb:656d4d
+# Colors
+# ‾‾‾‾‾‾
+# WarpMaker is not visible, instead it seems to be LineNumbersWrapped
+#set-face global WrapMarker         rgb:948975,rgb:1b1a1a+Ffga@rgb:1b1a1a
+set-face global LineNumbersWrapped rgb:948975,rgb:1b1a1a+Ffga@rgb:1b1a1a
 
 # Clipboard
 # ‾‾‾‾‾‾‾‾‾
