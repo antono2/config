@@ -17,7 +17,7 @@ colors:
   # Normal colors
   normal:
     black:   '0x282a2e'
-    blue:    '0xccbda2'
+    blue:    '0xdacfa1'
     cyan:    '0x5e8d87'
     green:   '0x61662c'
     magenta: '0x85678f'

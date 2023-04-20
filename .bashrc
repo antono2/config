@@ -120,6 +120,7 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ] ; then source /etc/profile.d/vte.sh; fi # U
 ## CUSTOM STUFF
 #disable terminal freeze in VIM on CTRL+S
 stty -ixon
+#vab bash completion
 source <(vab complete setup bash)
 #set rust environment vars to custom paths for
 export RUSTUP_HOME=$HOME/workspace/rust/rustup
