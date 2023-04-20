@@ -1,6 +1,6 @@
 # Config Files
 This directory contains a bunch of config files for different programs.
-At the original location where a program expects a config file, instead is a symlink like
+At the original location, where a program expects a config file, instead is a symlink like
 `ln -s <Config/File> <Original/Location/File>`
 
 
