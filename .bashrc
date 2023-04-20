@@ -129,3 +129,4 @@ export PATH="$HOME/workspace/rust/cargo/bin:$PATH"
 source $HOME/workspace/alacritty/extra/completions/alacritty.bash
 export PATH="$HOME/workspace/alacritty/target/release:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/workspace/glslang/bin/bin:$PATH"
