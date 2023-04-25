@@ -96,6 +96,16 @@ hook global WinSetOption filetype=v %§
   set-option buffer v_output_to_debug_buffer	true
 §
 
+# Building and Running
+# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+hook global -always BufOpenFifo '\*make\*' %{ map global normal <F2> ': make-next-error<ret>' }
+hook global WinSetOption filetype=(c) %§
+  set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build'
+  map -docstring "Save file and make"		window normal <F1> ":w<semicolon>make<ret>"
+  #map -docstring "meson compile -C build"	window normal <F2> ":make<ret>"
+  map -docstring "goto previous buffer"		global normal <F3> ":bp<ret>"
+§
+
 
 # Kak-Language Server Protocol Client
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -111,5 +121,11 @@ hook global WinSetOption filetype=(c|cpp|cmake) %{
     lsp-enable-window
 }
 
-#DEBUGGING
+#DEBUG
 #nop %sh{ (kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+
+
+
+
+
+
