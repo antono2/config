@@ -15,10 +15,11 @@ args = ["ls"]
 filetypes = ["c", "cpp"]
 roots = [".ccls-root", "compile_commands.json"]
 command = "ccls"
-# kak-lsp does not support newText https://github.com/ul/kak-lsp/issues/40
+# completion: kak-lsp does not support newText https://github.com/ul/kak-lsp/issues/40
+# clang.extraArgs: make sure to keep the isystem include order because of duplicate definitions
 args = [
     "--log-file=/tmp/ccls.log",
-    "--init={\"completion\":{\"detailedLabel\":false},\"cache\": {\"directory\": \"/tmp/ccls\"},\"clang\": {\"extraArgs\": [\"/usr/include/c++/11\",\"-isystem /usr/include\",\"-std=c++20\"]}}"
+    "--init={\"completion\":{\"detailedLabel\":false},\"clang\": {\"extraArgs\": [\"-isystem /usr/include\",\"-isystem /usr/include/c++/11\",\"-std=c++20\"]}}"
     ]
 
 [language.cmake]
