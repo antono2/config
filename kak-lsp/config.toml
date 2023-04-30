@@ -16,7 +16,10 @@ filetypes = ["c", "cpp"]
 roots = [".ccls-root", "compile_commands.json"]
 command = "ccls"
 # kak-lsp does not support newText https://github.com/ul/kak-lsp/issues/40
-args = ["--init={\"completion\":{\"detailedLabel\":false}}"]
+args = [
+    "--log-file=/tmp/ccls.log",
+    "--init={\"completion\":{\"detailedLabel\":false},\"cache\": {\"directory\": \"/tmp/ccls\"},\"clang\": {\"extraArgs\": [\"-isystem/usr/local/include\",\"-isystem/usr/include\"]}}"
+    ]
 
 [language.cmake]
 filetypes = ["cmake"]

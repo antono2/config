@@ -53,18 +53,21 @@ evaluate-commands %sh{
 ###  CUSTOM  ###
 ################
 
+
 add-highlighter global/ number-lines -separator ' ' -relative
 add-highlighter global/ show-matching
 add-highlighter global/ wrap -indent
 set-option global autocomplete insert
-set-option global tabstop 4
-set-option global indentwidth 4
+set-option global tabstop 2
+set-option global indentwidth 2
+
 
 # Colors
 # ‾‾‾‾‾‾
 # WarpMaker is not visible, instead it seems to be LineNumbersWrapped
 #set-face global WrapMarker         rgb:948975,rgb:1b1a1a+Ffga@rgb:1b1a1a
 set-face global LineNumbersWrapped rgb:948975,rgb:1b1a1a+Ffga@rgb:1b1a1a
+
 
 # Clipboard
 # ‾‾‾‾‾‾‾‾‾
@@ -83,8 +86,12 @@ map global user p -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
 #Replace selection
 map global user R -docstring "Replace selection" '|xsel --output --clipboard<ret>'
 
+
 # Key-Mappings
 # ‾‾‾‾‾‾‾‾‾‾‾‾
+map global normal '#' :comment-line<ret>
+map global normal '$' :comment-block<ret>
+
 # key mappings for V language files
 hook global WinSetOption filetype=v %§
   require-module v
@@ -95,15 +102,41 @@ hook global WinSetOption filetype=v %§
   set-option buffer v_output_to_info_box	true
   set-option buffer v_output_to_debug_buffer	true
 §
+# Suggested by kak-lsp https://github.com/kak-lsp/kak-lsp/blob/master/README.asciidoc#configure-mappings
+map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
+map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
+map global object a '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+map global object <a-a> '<a-semicolon>lsp-object<ret>' -docstring 'LSP any symbol'
+map global object e '<a-semicolon>lsp-object Function Method<ret>' -docstring 'LSP function or method'
+map global object k '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring 'LSP class interface or struct'
+map global object d '<a-semicolon>lsp-diagnostic-object --include-warnings<ret>' -docstring 'LSP errors and warnings'
+map global object D '<a-semicolon>lsp-diagnostic-object<ret>' -docstring 'LSP errors'
 
-# Building and Running
-# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+declare-user-mode grep
+define-command grep-selection %{
+  execute-keys ":grep <space> <c-r>. <ret>"
+}
+map global user g ':enter-user-mode grep<ret>' -docstring 'enter grep mode'
+map global grep g ':grep ' -docstring 'run grep'
+map global grep p ':grep-previous-match<ret>' -docstring 'run grep-previous-match'
+map global grep n ':grep-next-match<ret>' -docstring 'run grep-next-match'
+map global grep l ':edit -existing *grep* <ret>' -docstring 'show grep results'
+map global grep s ':grep-selection <ret>' -docstring 'grep selection'
+
+
+# Building and Running AntonsDungeonKeeper
+# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+define-command run-adk -docstring 'Run AntonsDungeonKeeper executable' %{
+# Open new tmux window and run
+	nop %sh{ tmux new-window './bin/antonsdungeonkeeper' }
+}
+
 hook global -always BufOpenFifo '\*make\*' %{ map global normal <F2> ': make-next-error<ret>' }
 hook global WinSetOption filetype=(c) %§
-  set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build'
-  map -docstring "Save file and make"		window normal <F1> ":w<semicolon>make<ret>"
-  #map -docstring "meson compile -C build"	window normal <F2> ":make<ret>"
-  map -docstring "goto previous buffer"		global normal <F3> ":bp<ret>"
+set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/workspace/meson/meson.py install -C build'
+  map -docstring "Save file and make"		window normal <F1> ": wa<semicolon>make<ret>"
+  map -docstring "Go to previous buffer"	global normal <F3> ": bp<ret>"
+  map -docstring "Run antonsdungeonkeeper"	global normal <F5> ":run-adk<ret>"
 §
 
 
@@ -122,10 +155,5 @@ hook global WinSetOption filetype=(c|cpp|cmake) %{
 }
 
 #DEBUG
-#nop %sh{ (kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
-
-
-
-
-
+nop %sh{ (kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 

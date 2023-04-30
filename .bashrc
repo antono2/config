@@ -120,6 +120,8 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ] ; then source /etc/profile.d/vte.sh; fi # U
 ## CUSTOM STUFF
 #disable terminal freeze in VIM on CTRL+S
 stty -ixon
+#enable holding down key to repeat
+xset r on
 #vab bash completion
 source <(vab complete setup bash)
 #set rust environment vars to custom paths for
@@ -130,3 +132,7 @@ source $HOME/workspace/alacritty/extra/completions/alacritty.bash
 export PATH="$HOME/workspace/alacritty/target/release:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/workspace/glslang/bin/bin:$PATH"
+#set vulkan env var for VK_LAYER_KHRONOS_validation
+export VK_LOADER_LAYERS_ENABLE=*validation,*gfxreconstruct,*api_dump
+export VULKAN_SDK=$HOME/.local/share/vulkan
+export PATH="$HOME/workspace/ccls/Release:$PATH"
