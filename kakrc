@@ -132,7 +132,7 @@ define-command run-adk -docstring 'Run AntonsDungeonKeeper executable' %{
 }
 
 hook global -always BufOpenFifo '\*make\*' %{ map global normal <F2> ': make-next-error<ret>' }
-hook global WinSetOption filetype=(c) %§
+hook global WinSetOption filetype=(c|cpp) %§
 set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/workspace/meson/meson.py install -C build'
   map -docstring "Save file and make"		window normal <F1> ": wa<semicolon>make<ret>"
   map -docstring "Go to previous buffer"	global normal <F3> ": bp<ret>"
