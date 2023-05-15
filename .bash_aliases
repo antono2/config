@@ -8,3 +8,6 @@ alias androidstudio='~/workspace/android-studio/bin/studio.sh'
 alias youtube-dl='~/.local/bin/youtube-dl'
 alias meson='~/workspace/meson/meson.py'
 alias ga="cd ~/workspace/adk/AntonsDungeonKeeper"
+alias gw="cd ~/workspace"
+alias go="cd ~/workspace/OpenDungeons"
+alias gc="cd ~/Configs"

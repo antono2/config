@@ -80,9 +80,9 @@ hook global RegisterModified '"' %{ nop %sh{
 }}
 
 #Paste before
-map global user P -docstring "Paste before" '!xsel --output --clipboard<ret>'
+map global user p -docstring "Paste before" '!xsel --output --clipboard<ret>'
 #Paste after
-map global user p -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
+map global user P -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
 #Replace selection
 map global user R -docstring "Replace selection" '|xsel --output --clipboard<ret>'
 
@@ -132,6 +132,7 @@ define-command run-adk -docstring 'Run AntonsDungeonKeeper executable' %{
 }
 
 hook global -always BufOpenFifo '\*make\*' %{ map global normal <F2> ': make-next-error<ret>' }
+map -docstring "Close current buffer" global normal <F4> ":db<ret>"
 hook global WinSetOption filetype=(c|cpp) %§
 set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/workspace/meson/meson.py install -C build'
   map -docstring "Save file and make"		window normal <F1> ": wa<semicolon>make<ret>"

@@ -19,7 +19,7 @@ command = "ccls"
 # clang.extraArgs: make sure to keep the isystem include order because of duplicate definitions with /usr/include/
 args = [
     "--log-file=/tmp/ccls.log",
-    """--init={"resourceDir": "/usr/lib/clang/14.0.0/include","completion":{"detailedLabel":false},"clang": {"extraArgs": ["-isystem /usr/include/x86_64-linux-gnu/c++/11","-isystem ~/workspace/Ogre/ogre/OgreMain/include/","-stdlib=libstdc++","-std=c++20"]}}"""
+    """--init={"resourceDir": "/usr/lib/clang/14.0.0/include","completion":{"detailedLabel":false},"clang": {"extraArgs": ["-isystem /usr/include/x86_64-linux-gnu/c++/11","-stdlib=libstdc++","-std=c++20"]}}"""
     ]
 
 [language.cmake]
