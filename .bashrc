@@ -136,3 +136,4 @@ export PATH="$HOME/workspace/glslang/bin/bin:$PATH"
 export VK_LOADER_LAYERS_ENABLE=*validation,*gfxreconstruct,*api_dump
 export VULKAN_SDK=$HOME/.local/share/vulkan
 export PATH="$HOME/workspace/ccls/Release:$PATH"
+#export CPLUS_INCLUDE_PATH=/usr/include/c++/11:/usr/lib/gcc/x86_64-linux-gnu/11:/usr/include/x86_64-linux-gnu/c++/11:/usr/lib/x86_64-linux-gnu

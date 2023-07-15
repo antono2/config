@@ -89,8 +89,10 @@ map global user R -docstring "Replace selection" '|xsel --output --clipboard<ret
 
 # Key-Mappings
 # ‾‾‾‾‾‾‾‾‾‾‾‾
-map global normal '#' :comment-line<ret>
-map global normal '$' :comment-block<ret>
+map global normal '#' ':comment-line<ret>'
+map global normal '$' ':comment-block<ret>'
+unmap global i <c-s> #Don't want to close kakoune without saving
+map global insert <c-s> '<a-semicolon>:write<ret>'
 
 # key mappings for V language files
 hook global WinSetOption filetype=v %§
@@ -102,6 +104,15 @@ hook global WinSetOption filetype=v %§
   set-option buffer v_output_to_info_box	true
   set-option buffer v_output_to_debug_buffer	true
 §
+
+# Search user mode
+declare-user-mode search
+map -docstring "Search mode" global user / %{:enter-user-mode search<ret>} 
+map -docstring 'case insensitive search' global search / /(?i)
+map -docstring 'case insensitive backward search' global search <a-/> <a-/>(?i)
+map -docstring 'case insensitive extend search' global search ? ?(?i)
+map -docstring 'case insensitive backward extend-search' global search <a-?> <a-?>(?i)
+
 # Suggested by kak-lsp https://github.com/kak-lsp/kak-lsp/blob/master/README.asciidoc#configure-mappings
 map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
 map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
@@ -116,7 +127,7 @@ declare-user-mode grep
 define-command grep-selection %{
   execute-keys ":grep <space> <c-r>. <ret>"
 }
-map global user g ':enter-user-mode grep<ret>' -docstring 'enter grep mode'
+map global user g ':enter-user-mode grep<ret>' -docstring 'Grep mode'
 map global grep g ':grep ' -docstring 'run grep'
 map global grep p ':grep-previous-match<ret>' -docstring 'run grep-previous-match'
 map global grep n ':grep-next-match<ret>' -docstring 'run grep-next-match'
