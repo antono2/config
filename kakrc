@@ -162,7 +162,7 @@ hook global KakEnd .* lsp-exit
 #hook global KakEnd .* %sh{ kill $(ps ax | grep "kak-lsp" | awk '{print $1}') }
 
 # Enable kak-lsp for different files
-hook global WinSetOption filetype=(c|cpp|cmake) %{
+hook global WinSetOption filetype=(v|c|cpp|cmake) %{
     lsp-enable-window
 }
 
