@@ -15,6 +15,7 @@ In order to allow for maximum customization, there is no script to run, but just
 | .tmux.conf | ~/Configs/.tmux.conf - set by alacritty.yml |
 | kakrc | ~/workspace/kakoune/share/kak/kakrc |
 | ./kak-lsp/config.toml | ~/Configs/kak-lsp/config.toml - set by kakrc |
+| .mpv.conf | ~/.config/mpv/mpv.conf |
 
 ## Installation per Symlinks
 
