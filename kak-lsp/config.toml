@@ -13,7 +13,9 @@ args = ["ls"]
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
-roots = [".ccls-root", "compile_commands.json"]
+# List of file names to determine a project root directory.
+# If a parent directory of the current file contains one of these, then it's the root.
+roots = [".ccls-root", "compile_commands.json", "README.md" , "LICENSE.md"]
 command = "ccls"
 # completion: kak-lsp does not support newText https://github.com/ul/kak-lsp/issues/40
 # clang.extraArgs: make sure to keep the isystem include order because of duplicate definitions with /usr/include/

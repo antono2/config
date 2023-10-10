@@ -113,6 +113,19 @@ map -docstring 'case insensitive backward search' global search <a-/> <a-/>(?i)
 map -docstring 'case insensitive extend search' global search ? ?(?i)
 map -docstring 'case insensitive backward extend-search' global search <a-?> <a-?>(?i)
 
+# kaktree file browser https://git.sr.ht/~teddy/kaktree
+#source "/home/anton/workspace/kakoune/rc/kaktree/rc/kaktree.kak"
+# Remove hightlighters from kaktree
+hook global WinSetOption filetype=kaktree %{
+    remove-highlighter buffer/number-lines
+    remove-highlighter buffer/show-matching
+    remove-highlighter buffer/numbers
+    remove-highlighter buffer/matching
+    remove-highlighter buffer/wrap
+    remove-highlighter buffer/show-whitespaces
+}
+kaktree-enable
+
 # Suggested by kak-lsp https://github.com/kak-lsp/kak-lsp/blob/master/README.asciidoc#configure-mappings
 map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
 map global insert <tab> '<a-;>:try lsp-snippets-select-next-placeholders catch %{ execute-keys -with-hooks <lt>tab> }<ret>' -docstring 'Select next snippet placeholder'
