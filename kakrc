@@ -53,13 +53,18 @@ evaluate-commands %sh{
 ###  CUSTOM  ###
 ################
 
-
-add-highlighter global/ number-lines -separator ' ' -relative
 add-highlighter global/ show-matching
 add-highlighter global/ wrap -indent
 set-option global autocomplete insert
 set-option global tabstop 2
 set-option global indentwidth 2
+
+
+# Display line numbers everywhere, but using buffer makes them removable.
+# They shouldnt be displayed in kaktree, thus named and only in buffer scope.
+hook -once global BufCreate .* %§
+  add-highlighter buffer/my-line-numbers number-lines -relative -separator ' ' -min-digits '2'
+§
 
 
 # Colors
@@ -117,12 +122,18 @@ map -docstring 'case insensitive backward extend-search' global search <a-?> <a-
 #source "/home/anton/workspace/kakoune/rc/kaktree/rc/kaktree.kak"
 # Remove hightlighters from kaktree
 hook global WinSetOption filetype=kaktree %{
-    remove-highlighter buffer/number-lines
+    remove-highlighter buffer/my-line-numbers
     remove-highlighter buffer/show-matching
     remove-highlighter buffer/numbers
     remove-highlighter buffer/matching
     remove-highlighter buffer/wrap
     remove-highlighter buffer/show-whitespaces
+    set-option global kaktree_double_click_duration '0.5'
+    set-option global kaktree_indentation 1
+    set-option global kaktree_dir_icon_open  '▾ 🗁 '
+    set-option global kaktree_dir_icon_close '▸ 🗀 '
+    set-option global kaktree_file_icon      '⠀⠀🖺'
+    set-option global kaktree_size           '25'
 }
 kaktree-enable
 
@@ -180,5 +191,5 @@ hook global WinSetOption filetype=(v|c|cpp|cmake) %{
 }
 
 #DEBUG
-nop %sh{ (kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+#nop %sh{ (kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 
