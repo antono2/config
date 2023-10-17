@@ -62,7 +62,7 @@ set-option global indentwidth 2
 
 # Display line numbers everywhere, but using buffer makes them removable.
 # They shouldnt be displayed in kaktree, thus named and only in buffer scope.
-hook -once global BufCreate .* %§
+hook -always global BufCreate .* %§
   add-highlighter buffer/my-line-numbers number-lines -relative -separator ' ' -min-digits '2'
 §
 
