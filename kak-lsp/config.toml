@@ -37,7 +37,9 @@ args =	[
 		    	"cache":
 		    		{"directory":"/tmp/ccls-cache"},
 		    	"completion":
-		    		{"detailedLabel":false}
+		    		{"detailedLabel":false},
+		    	"clang":
+		    		{-std=c++20}
 		}
     """
 	]
