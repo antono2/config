@@ -31,13 +31,24 @@ filetypes = ["c", "cpp"]
 roots = [".ccls", "compile_commands.json"]
 command = "ccls"
 # completion: kak-lsp does not support newText https://github.com/ul/kak-lsp/issues/40
+# get extraArgs with
+# clang -v -fsyntax-only -x c++ /dev/null
+# get resourceDir with
+# clang -print-resource-dir
 args =	[
     "--log-file=/tmp/ccls.log",
     """--init=	{
 		    	"cache":
 		    		{"directory":"/tmp/ccls-cache"},
 		    	"completion":
-		    		{"detailedLabel":false}
+		    		{"detailedLabel":false},
+		    	"clang": {
+		    		"extraArgs": [
+              "-isystem /home/anton/workspace/gcc-build-master/gcc/include",
+              "--gcc-toolchain=/home/anton/workspace/gcc-build-master"
+		    		],
+		    		"resourceDir": "/home/anton/workspace/gcc-build-master"
+		    	}
 		}
     """
 	]
