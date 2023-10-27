@@ -178,7 +178,7 @@ set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/
 
 # Kak-Language Server Protocol Client
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-eval %sh{ kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak_session }
+eval %sh{ . ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak_session }
 # Close kak-lsp when kakoune is closed
 hook global KakEnd .* lsp-exit
 # When VLS throws errors after a Kakoune restart is
@@ -191,5 +191,6 @@ hook global WinSetOption filetype=(v|c|cpp|cmake) %{
 }
 
 #DEBUG
-#nop %sh{ (kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+# source gcc-master environment vars. sh uses . instead of source for this
+nop %sh{ (. ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 

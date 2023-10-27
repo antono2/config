@@ -35,6 +35,25 @@ command = "ccls"
 # clang -v -fsyntax-only -x c++ /dev/null
 # get resourceDir with
 # clang -print-resource-dir
+# args =	[
+#     "--log-file=/tmp/ccls.log",
+#     """--init=	{
+# 		    	"cache":
+# 		    		{"directory":"/tmp/ccls-cache"},
+# 		    	"completion":
+# 		    		{"detailedLabel":false},
+# 		    	"clang": {
+# 		    		"extraArgs": [
+#               "-isystem /home/anton/workspace/gcc-build-master/gcc/include",
+#               "-I /home/anton/workspace/CppBry/third_party/json/include",
+#               "-I /home/anton/workspace/spdlog/include",
+#               "--gcc-toolchain=/home/anton/workspace/gcc-build-master"
+# 		    		],
+# 		    		"resourceDir": "/home/anton/workspace/gcc-build-master"
+# 		    	}
+# 		}
+#     """
+# 	]
 args =	[
     "--log-file=/tmp/ccls.log",
     """--init=	{
@@ -45,9 +64,10 @@ args =	[
 		    	"clang": {
 		    		"extraArgs": [
               "-isystem /home/anton/workspace/gcc-build-master/gcc/include",
-              "--gcc-toolchain=/home/anton/workspace/gcc-build-master"
+              "-I /home/anton/workspace/CppBry/third_party/json/include",
+              "-I /home/anton/workspace/spdlog/include"
 		    		],
-		    		"resourceDir": "/home/anton/workspace/gcc-build-master"
+		    		"resourceDir": "/usr"
 		    	}
 		}
     """
