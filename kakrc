@@ -98,7 +98,7 @@ map global normal '$' ':comment-block<ret>'
 unmap global i <c-s> #Don't want to close kakoune without saving
 map global insert <c-s> '<a-semicolon>:write<ret>'
 
-# key mappings for V language files
+# key mappings, options and hooks for V language files
 hook global WinSetOption filetype=v %§
   require-module v
   map -docstring "Format and save current file"	window normal <F5> ":v-fmt<ret>"
@@ -107,6 +107,14 @@ hook global WinSetOption filetype=v %§
   map -docstring 'Switch to previous buffer'	global normal <F8> ":buffer-previous;delete-buffer *debug*<ret>"
   set-option buffer v_output_to_info_box	true
   set-option buffer v_output_to_debug_buffer	true
+
+  # Add semantic tokens highlighting
+  hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+  hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+  hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+  hook -once -always window WinSetOption filetype=.* %{
+    remove-hooks window semantic-tokens
+  }
 §
 
 # Search user mode
@@ -179,6 +187,10 @@ set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/
 # Kak-Language Server Protocol Client
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 eval %sh{ . ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak_session }
+#DEBUG log to /tmp/kak-lsp.log
+# source gcc-master environment vars. sh uses . instead of source for this
+# nop %sh{ (. ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+
 # Close kak-lsp when kakoune is closed
 hook global KakEnd .* lsp-exit
 # When VLS throws errors after a Kakoune restart is
@@ -189,8 +201,4 @@ hook global KakEnd .* lsp-exit
 hook global WinSetOption filetype=(v|c|cpp|cmake) %{
     lsp-enable-window
 }
-
-#DEBUG
-# source gcc-master environment vars. sh uses . instead of source for this
-nop %sh{ (. ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 

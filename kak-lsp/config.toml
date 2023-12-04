@@ -4,12 +4,18 @@ verbosity = 2
 [server]
 timeout = 1800 # seconds = 30 minutes
 
+# [language.v]
+# # The filetype variable is set in vlang.kak for .v, .vsh, .vv, .c.v under the name "v"
+# filetypes = ["v"]
+# roots = ["mod.v", ".git/"]
+# command = "v"
+# args = ["ls"]
+
 [language.v]
 # The filetype variable is set in vlang.kak for .v, .vsh, .vv, .c.v under the name "v"
 filetypes = ["v"]
-roots = ["mod.v", ".git/"]
-command = "v"
-args = ["ls"]
+roots = ["mod.v"]
+command = "v-analyzer"
 
 # [language.c_cpp]
 # filetypes = ["c", "cpp"]
@@ -77,6 +83,18 @@ args =	[
 filetypes = ["cmake"]
 roots = ["CMakeLists.txt", ".git", ".hg"]
 command = "cmake-language-server"
+
+### Latex lsp using texlab & pdf preview using evince
+# https://github.com/kak-lsp/kak-lsp/blob/master/kak-lsp.toml
+# https://github.com/latex-lsp/texlab/wiki/Previewing#evince
+# evince requires https://github.com/latex-lsp/evince-synctex
+# TODO
+# [language_server.texlab]
+# filetypes = ["latex"]
+# roots = [".git", ".hg"]
+# command = "texlab"
+# [language_server.texlab.settings.texlab]
+
 
 [semantic_tokens]
 faces = [
