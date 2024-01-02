@@ -83,12 +83,14 @@ hook global RegisterModified '"' %{ nop %sh{
   fi
 }}
 
-#Paste before
-map global user p -docstring "Paste before" '!xsel --output --clipboard<ret>'
-#Paste after
-map global user P -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
-#Replace selection
+# Paste after
+map global user p -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
+# Paste before
+map global user P -docstring "Paste before" '!xsel --output --clipboard<ret>'
+# Replace selection
 map global user R -docstring "Replace selection" '|xsel --output --clipboard<ret>'
+
+# Exec Shell Command
 
 
 # Key-Mappings
@@ -202,3 +204,16 @@ hook global WinSetOption filetype=(v|c|cpp|cmake) %{
     lsp-enable-window
 }
 
+
+# TMP Hook Testing
+# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+# declare-option bool currently_working_on_project false
+# hook global BufCreate .* %[
+#   set-option global currently_working_on_project %sh{
+#     find . -name "my_project_file" | read -r na && echo yes || ! echo no
+#   }
+# ]
+
+# hook global WinSetOption currently_working_on_project=true %{
+#   colorscheme base16
+# }
