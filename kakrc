@@ -168,6 +168,12 @@ map global grep n ':grep-next-match<ret>' -docstring 'run grep-next-match'
 map global grep l ':edit -existing *grep* <ret>' -docstring 'show grep results'
 map global grep s ':grep-selection <ret>' -docstring 'grep selection'
 
+hook global BufSetOption filetype=html %{
+  set-option buffer comment_block_begin "<!--"
+  set-option buffer comment_block_end "-->"
+}
+
+
 
 # Building and Running AntonsDungeonKeeper
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
