@@ -124,6 +124,8 @@ stty -ixon
 xset r on
 #vab bash completion
 source <(vab complete setup bash)
+#v bash completion
+source <(v complete setup bash)
 #set rust environment vars to custom paths for
 export RUSTUP_HOME=$HOME/workspace/rust/rustup
 export CARGO_HOME=$HOME/workspace/rust/cargo
@@ -133,8 +135,21 @@ export PATH="$HOME/workspace/alacritty/target/release:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/workspace/glslang/bin/bin:$PATH"
 #set vulkan env var for VK_LAYER_KHRONOS_validation
-export VK_LOADER_LAYERS_ENABLE=*validation,*gfxreconstruct,*api_dump
-export VULKAN_SDK=$HOME/.local/share/vulkan
+#export VK_LOADER_LAYERS_ENABLE=*validation,*gfxreconstruct,*api_dump
+#export VK_LOADER_LAYERS_ENABLE=*validation,*api_dump
+export VK_LOADER_LAYERS_ENABLE=*api_dump
+#export VULKAN_SDK=$HOME/.local/share/vulkan
 export PATH="$HOME/workspace/ccls/Release:$PATH"
 #export CPLUS_INCLUDE_PATH=/usr/include/c++/11:/usr/lib/gcc/x86_64-linux-gnu/11:/usr/include/x86_64-linux-gnu/c++/11:/usr/lib/x86_64-linux-gnu
 export PATH="$HOME/workspace/v-analyzer/bin:$PATH"
+export ABCL_ROOT="$HOME/workspace/abcl-src-1.9.2"
+export LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
+# Erlang
+export KERL_BUILD_BACKEND="git"
+export KERL_CONFIGURE_OPTIONS="--without-javac \
+                               --with-dynamic-trace=systemtap"
+export PATH="$HOME/workspace/kerl:$PATH"
+export PATH="$HOME/workspace/rebar3:$PATH"
+export PATH="$HOME/workspace/gf:$PATH"
+export PATH="$HOME/workspace/binutils-gdb/install/bin:$PATH"
+export KAKOUNE_CONFIG_DIR="$HOME/Configs"

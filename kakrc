@@ -1,53 +1,3 @@
-def -params 1 -docstring "colorscheme <name>: enable named colorscheme" \
-    -shell-script-candidates %{
-    find -L "${kak_runtime}/colors" "${kak_config}/colors" -type f -name '*\.kak' \
-        | while read -r filename; do
-            basename="${filename##*/}"
-            printf %s\\n "${basename%.*}"
-        done | sort -u
-  } \
-  colorscheme %{ evaluate-commands %sh{
-    find_colorscheme() {
-        find -L "${1}" -type f -name "${2}".kak | head -n 1
-    }
-
-    filename=""
-    if [ -d "${kak_config}/colors" ]; then
-        filename=$(find_colorscheme "${kak_config}/colors" "${1}")
-    fi
-    if [ -z "${filename}" ]; then
-        filename=$(find_colorscheme "${kak_runtime}/colors" "${1}")
-    fi
-
-    if [ -n "${filename}" ]; then
-        printf 'source %%{%s}' "${filename}"
-    else
-        echo "fail 'No such colorscheme ${1}.kak'"
-    fi
-}}
-
-evaluate-commands %sh{
-    autoload_directory() {
-        find -L "$1" -type f -name '*\.kak' \
-            | sed 's/.*/try %{ source "&" } catch %{ echo -debug Autoload: could not load "&" }/'
-    }
-
-    echo "colorscheme default"
-
-    if [ -d "${kak_config}/autoload" ]; then
-        autoload_directory ${kak_config}/autoload
-    elif [ -d "${kak_runtime}/autoload" ]; then
-        autoload_directory ${kak_runtime}/autoload
-    fi
-
-    if [ -f "${kak_runtime}/kakrc.local" ]; then
-        echo "source '${kak_runtime}/kakrc.local'"
-    fi
-
-    if [ -f "${kak_config}/kakrc" ]; then
-        echo "source '${kak_config}/kakrc'"
-    fi
-}
 
 ################
 ###  CUSTOM  ###
@@ -75,12 +25,15 @@ set-face global LineNumbersWrapped rgb:948975,rgb:1b1a1a+Ffga@rgb:1b1a1a
 
 # Clipboard
 # ‾‾‾‾‾‾‾‾‾
+##hook global RegisterModified '"' %{ nop %sh{
+##  if [ -n "$DISPLAY" ]; then
+##    printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+##  elif [ -n "$TMUX" ]; then
+##    tmux set-buffer -- "$kak_main_reg_dquote"
+##  fi
+##}}
 hook global RegisterModified '"' %{ nop %sh{
-  if [ -n "$DISPLAY" ]; then
-    printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
-  elif [ -n "$TMUX" ]; then
-    tmux set-buffer -- "$kak_main_reg_dquote"
-  fi
+  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}
 
 # Paste after
@@ -145,7 +98,8 @@ hook global WinSetOption filetype=kaktree %{
     set-option global kaktree_size           '25'
     set-option global kaktree_sort           1
 }
-kaktree-enable
+# TODO: Investigate why kaktree isn't available with .lisp files
+# kaktree-enable
 
 # Suggested by kak-lsp https://github.com/kak-lsp/kak-lsp/blob/master/README.asciidoc#configure-mappings
 map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
@@ -172,7 +126,6 @@ hook global BufSetOption filetype=html %{
   set-option buffer comment_block_begin "<!--"
   set-option buffer comment_block_end "-->"
 }
-
 
 
 # Building and Running AntonsDungeonKeeper
@@ -207,19 +160,12 @@ hook global KakEnd .* lsp-exit
 
 # Enable kak-lsp for different files
 hook global WinSetOption filetype=(v|c|cpp|cmake) %{
-    lsp-enable-window
+   lsp-enable-window
+}
+
+# Enable support for LISP with parinfer
+hook global WinSetOption filetype=(clojure|lisp|scheme|racket|gc) %{
+   parinfer-enable-window -smart
 }
 
 
-# TMP Hook Testing
-# ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-# declare-option bool currently_working_on_project false
-# hook global BufCreate .* %[
-#   set-option global currently_working_on_project %sh{
-#     find . -name "my_project_file" | read -r na && echo yes || ! echo no
-#   }
-# ]
-
-# hook global WinSetOption currently_working_on_project=true %{
-#   colorscheme base16
-# }
