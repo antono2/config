@@ -1,0 +1,33 @@
+general.import = ["~/Configs/alacritty_themes/remedy_dark_anton.toml"]
+
+[env]
+TERM = "alacritty"
+
+[font]
+size = 14.0
+
+[font.bold]
+family = "JetBrains Mono"
+style = "ExtraBold"
+
+[font.bold_italic]
+family = "JetBrains Mono"
+style = "ExtraBold Italic"
+
+[font.italic]
+family = "JetBrains Mono"
+style = "Medium Italic"
+
+[font.normal]
+family = "JetBrains Mono"
+style = "Medium"
+
+[terminal.shell]
+args = ["-l", "-c", "tmux -f ~/Configs/.tmux.conf new-session -A -D -s '(∩Ȍ▾Ȍ)⊃━☆ﾟ,*' && tmux send-keys -t '(∩Ȍ▾Ȍ)⊃━☆ﾟ,*' 'source $HOME/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh' ENTER"]
+program = "/bin/bash"
+
+[window]
+decorations = "none"
+startup_mode = "Maximized"
+
+[terminal]

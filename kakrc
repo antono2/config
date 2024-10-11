@@ -25,25 +25,20 @@ set-face global LineNumbersWrapped rgb:948975,rgb:1b1a1a+Ffga@rgb:1b1a1a
 
 # Clipboard
 # ‾‾‾‾‾‾‾‾‾
-##hook global RegisterModified '"' %{ nop %sh{
-##  if [ -n "$DISPLAY" ]; then
-##    printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
-##  elif [ -n "$TMUX" ]; then
-##    tmux set-buffer -- "$kak_main_reg_dquote"
-##  fi
-##}}
 hook global RegisterModified '"' %{ nop %sh{
-  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+ if [ -n "$DISPLAY" ]; then
+   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+ elif [ -n "$TMUX" ]; then
+   tmux set-buffer -- "$kak_main_reg_dquote"
+ fi
 }}
+#hook global RegisterModified '"' %{ nop %sh{
+#  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+#}}
 
-# Paste after
 map global user p -docstring "Paste after" '<a-!>xsel --output --clipboard<ret>'
-# Paste before
 map global user P -docstring "Paste before" '!xsel --output --clipboard<ret>'
-# Replace selection
 map global user R -docstring "Replace selection" '|xsel --output --clipboard<ret>'
-
-# Exec Shell Command
 
 
 # Key-Mappings
@@ -147,10 +142,10 @@ set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/
 
 # Kak-Language Server Protocol Client
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-eval %sh{ . ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak_session }
+eval %sh{ . ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config ~/Configs/kak-lsp/config.toml -s $kak_session }
 #DEBUG log to /tmp/kak-lsp.log
 # source gcc-master environment vars. sh uses . instead of source for this
-# nop %sh{ (. ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config $HOME/workspace/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
+# nop %sh{ (. ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config ~/Configs/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }
 
 # Close kak-lsp when kakoune is closed
 hook global KakEnd .* lsp-exit

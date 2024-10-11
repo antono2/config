@@ -19,5 +19,4 @@ alias gp="cd ~/workspace/planisphere/"
 #alias gf="cd ~/workspace/gf"
 alias lbrynet="source ~/workspace/lbry-sdk/lbry-venv/bin/activate && ~/workspace//lbry-sdk/lbry-venv/bin/lbrynet"
 alias texlab="~/workspace/texlab/texlab"
-alias vvbg="cd ~/workspace/v_vulkan_binding_generator"
-
+alias vvbg="cd ~/workspace/v_vulkan_bindings"
