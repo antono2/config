@@ -23,7 +23,7 @@ family = "JetBrains Mono"
 style = "Medium"
 
 [terminal.shell]
-args = ["-l", "-c", "tmux -f ~/Configs/.tmux.conf new-session -A -D -s '(∩Ȍ▾Ȍ)⊃━☆ﾟ,*' && tmux send-keys -t '(∩Ȍ▾Ȍ)⊃━☆ﾟ,*' 'source $HOME/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh' ENTER"]
+args = ["-l", "-c", "tmux -f ~/Configs/.tmux.conf new-session -A -D -s '(∩Ȍ▾Ȍ)⊃━☆ﾟ,*' && tmux send-keys -t '(∩Ȍ▾Ȍ)⊃━☆ﾟ,*' ENTER"]
 program = "/bin/bash"
 
 [window]

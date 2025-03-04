@@ -1,4 +1,3 @@
-
 ################
 ###  CUSTOM  ###
 ################
@@ -14,6 +13,16 @@ set-option global indentwidth 2
 hook -always global BufCreate .* %§
   add-highlighter buffer/my-line-numbers number-lines -relative -separator ' ' -min-digits '2'
 §
+
+# V filetype
+# ‾‾‾‾‾‾‾‾‾‾
+hook global BufCreate .+\.(v|vsh|vv|c\.v)$ %{
+  set-option buffer filetype v
+}
+
+hook global BufCreate .+v\.mod$ %{
+  set-option buffer filetype json
+}
 
 
 # Colors
@@ -143,6 +152,7 @@ set-option global makecmd '~/workspace/meson/meson.py compile -j4 -C build && ~/
 # Kak-Language Server Protocol Client
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 eval %sh{ . ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config ~/Configs/kak-lsp/config.toml -s $kak_session }
+# eval %sh{ . ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config ~/Configs/kak-lsp/config.toml -s 52934 }
 #DEBUG log to /tmp/kak-lsp.log
 # source gcc-master environment vars. sh uses . instead of source for this
 # nop %sh{ (. ~/workspace/set_environment_stuff_to_newest_gcc_and_ccls.sh && kak-lsp --kakoune --config ~/Configs/kak-lsp/config.toml -s $kak_session -vvv ) > /tmp/kak-lsp.log 2>&1 < /dev/null & }

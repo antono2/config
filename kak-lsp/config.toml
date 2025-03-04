@@ -11,10 +11,10 @@ timeout = 1800 # seconds = 30 minutes
 # command = "v"
 # args = ["ls"]
 
-[language.v]
+[language_server.v]
 # The filetype variable is set in vlang.kak for .v, .vsh, .vv, .c.v under the name "v"
 filetypes = ["v"]
-roots = ["mod.v"]
+roots = ["v.mod"]
 command = "v-analyzer"
 # command = "analyze_v_analyzer.sh"
 # command = "systemd-run"
@@ -33,7 +33,7 @@ command = "v-analyzer"
 #     """--init={"cache":{"directory":"/tmp/ccls-cache"}, "completion":{"detailedLabel":false}, "clang": {"resourceDir": "/usr/lib/clang/14.0.0/include", "extraArgs": ["-isystem /usr/include/x86_64-linux-gnu/c++/11","-stdlib=libstdc++","-std=c++20"]}}"""
 #     ]
 
-[language.c_cpp]
+[language_server.c_cpp]
 filetypes = ["c", "cpp"]
 # List of file names to determine a project root directory.
 # If a parent directory of the current file contains one of these, then it's the root.
@@ -82,7 +82,7 @@ args =	[
     """
 	]
 
-[language.cmake]
+[language_server.cmake]
 filetypes = ["cmake"]
 roots = ["CMakeLists.txt", ".git", ".hg"]
 command = "cmake-language-server"

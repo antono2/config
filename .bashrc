@@ -131,6 +131,8 @@ xset r on
 #export CARGO_HOME=/home/anton/workspace/rust/cargo
 #export PATH="/home/anton/workspace/rust/cargo/bin:$PATH"
 . "$HOME/.cargo/env"
+source <( rustup completions bash )          # for rustup
+source <( rustup completions bash cargo )    # for cargo
 source /home/anton/workspace/alacritty/extra/completions/alacritty.bash
 export PATH="/home/anton/workspace/alacritty/target/release:$PATH"
 export PATH="/home/anton/.local/bin:$PATH"
@@ -140,7 +142,7 @@ export PATH="/home/anton/workspace/glslang/bin/bin:$PATH"
 #export VK_LOADER_LAYERS_ENABLE=*validation,*api_dump
 export VK_LOADER_LAYERS_ENABLE=*api_dump
 #export VULKAN_SDK=/home/anton/.local/share/vulkan
-export VULKAN_SDK=$HOME/workspace/vulkansdk-linux-x86_64-1.3.290.0/x86_64
+export VULKAN_SDK=$HOME/workspace/vulkansdk-linux-x86_64-1.3.296.0/x86_64
 export VK_LAYER_PATH=$VULKAN_SDK/share/vulkan/explicit_layer.d
 export LD_LIBRARY_PATH=$VULKAN_SDK/lib:$LD_LIBRARY_PATH
 export PATH="/home/anton/workspace/ccls/Release:$PATH"
@@ -160,4 +162,10 @@ export PATH="/home/anton/workspace/binutils-gdb/install/bin:$PATH"
 #export KAKOUNE_CONFIG_DIR="/home/anton/Configs"
 export PATH=$PATH:$HOME/workspace/kak-lsp
 export PATH=$PATH:/usr/local/go/bin
+export GCM_CREDENTIAL_STORE="gpg"
+export PATH="$HOME/workspace/llvm-project/install/bin:$PATH"
+export GLFW_LIB="/usr/lib/x86_64-linux-gnu"
+export GLFW_INCLUDE=""
+
+
 
